@@ -1,0 +1,71 @@
+@import './variables.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(201, 162, 39, 0.08), transparent 60%);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-body);
+}
+
+input, select, textarea {
+  font-family: var(--font-body);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #1a1714;
+}
+
+/* Foco visível para acessibilidade */
+:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

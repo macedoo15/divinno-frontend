@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.flip .svg {
+  transform: scaleY(-1);
+}
+
+.svg {
+  width: 140px;
+  height: 32px;
+  overflow: visible;
+}
+
+.archOuter,
+.archInner {
+  fill: none;
+  stroke: var(--color-gold-dark);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.archInner {
+  stroke: var(--color-gold);
+  opacity: 0.7;
+}

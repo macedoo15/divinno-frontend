@@ -1,0 +1,16 @@
+.logo {
+  display: block;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+}
+
+.sm {
+  width: 96px;
+}
+
+.md {
+  width: 140px;
+}
+
+.lg {
+  width: 200px;
+}
