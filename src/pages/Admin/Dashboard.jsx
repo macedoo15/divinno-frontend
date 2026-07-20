@@ -22,14 +22,66 @@ const MESES = [
 const PAGE_SIZE = 10;
 
 function getValue(cliente, keys) {
-  return keys.map((key) => cliente?.[key]).find((value) => value !== undefined && value !== null) || '';
+  for (const key of keys) {
+    const value = getPathValue(cliente, key);
+    if (hasValue(value)) return value;
+  }
+
+  return '';
+}
+
+function hasValue(value) {
+  return value !== undefined && value !== null && value !== '';
+}
+
+function normalizeFieldName(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .toLowerCase();
+}
+
+function getPathValue(source, path) {
+  if (!source || typeof source !== 'object') return '';
+
+  return String(path)
+    .split('.')
+    .reduce((current, part) => {
+      if (!current || typeof current !== 'object') return undefined;
+
+      if (Object.prototype.hasOwnProperty.call(current, part)) {
+        return current[part];
+      }
+
+      const normalizedPart = normalizeFieldName(part);
+      const matchedKey = Object.keys(current).find(
+        (key) => normalizeFieldName(key) === normalizedPart
+      );
+
+      return matchedKey ? current[matchedKey] : undefined;
+    }, source);
 }
 
 function normalizeCliente(cliente) {
   return {
     id: getValue(cliente, ['id', 'uuid', 'clienteId']),
     nome: getValue(cliente, ['nome', 'name']),
-    email: getValue(cliente, ['email']),
+    email: getValue(cliente, [
+      'email',
+      'eMail',
+      'e-mail',
+      'e_mail',
+      'mail',
+      'emailCliente',
+      'email_cliente',
+      'clienteEmail',
+      'contatoEmail',
+      'enderecoEmail',
+      'usuario.email',
+      'user.email',
+      'cliente.email',
+    ]),
     whatsapp: getValue(cliente, ['whatsapp', 'telefone', 'phone']),
     dataNascimento: getValue(cliente, ['dataNascimento', 'data_nascimento', 'nascimento', 'birthDate']),
     criadoEm: getValue(cliente, ['criadoEm', 'createdAt', 'created_at', 'dataCadastro', 'data_cadastro']),
