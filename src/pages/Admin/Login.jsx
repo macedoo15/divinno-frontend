@@ -19,7 +19,7 @@ function Login() {
     setError('');
 
     try {
-      await loginAdmin({ email, senha, password: senha });
+      await loginAdmin({ email: email.trim(), senha });
       navigate('/admin');
     } catch (err) {
       const message = err?.response?.data?.message || err.message;

@@ -2,7 +2,14 @@ import api from './api';
 
 export async function loginAdmin(credentials) {
   const { data } = await api.post('/auth/login', credentials);
-  const token = data?.token || data?.accessToken || data?.access_token;
+  const token =
+    data?.token ||
+    data?.accessToken ||
+    data?.access_token ||
+    data?.session?.access_token ||
+    data?.data?.token ||
+    data?.data?.accessToken ||
+    data?.data?.access_token;
 
   if (!token) {
     throw new Error('Login realizado, mas a API nao retornou token.');
