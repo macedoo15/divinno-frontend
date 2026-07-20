@@ -16,9 +16,14 @@ function CadastroSucesso({ nome }) {
         {nome ? `Obrigado, ${nome.split(' ')[0]}. ` : 'Obrigado. '}
         Seus dados foram recebidos com sucesso. Em breve voce comeca a receber as novidades da casa.
       </p>
-      <a className={styles.socialLink} href="https://instagram.com" target="_blank" rel="noreferrer">
+      <a
+        className={styles.socialLink}
+        href="https://www.instagram.com/divinno.cervejaria/"
+        target="_blank"
+        rel="noreferrer"
+      >
         <InstagramIcon />
-        @divinnocervejaria
+        @divinno.cervejaria
       </a>
     </div>
   );

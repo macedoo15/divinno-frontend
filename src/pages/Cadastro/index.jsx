@@ -105,9 +105,14 @@ function Cadastro() {
           Cadastrar agora
         </Button>
 
-        <a className={styles.socialLink} href="https://instagram.com" target="_blank" rel="noreferrer">
+        <a
+          className={styles.socialLink}
+          href="https://www.instagram.com/divinno.cervejaria/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <InstagramIcon />
-          @divinnocervejaria
+          @divinno.cervejaria
         </a>
       </form>
     </main>
