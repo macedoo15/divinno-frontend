@@ -1,6 +1,7 @@
 .logo {
   display: block;
-  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+  max-width: 100%;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.42));
 }
 
 .sm {
@@ -13,4 +14,8 @@
 
 .lg {
   width: 200px;
+}
+
+.hero {
+  width: 202px;
 }

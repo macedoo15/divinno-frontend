@@ -1,9 +1,5 @@
-import { Link } from 'react-router-dom';
 import { Controller } from 'react-hook-form';
 import Logo from '../../components/Logo';
-import ArchDivider from '../../components/ArchDivider';
-import StepProgress from '../../components/StepProgress';
-import Panel from '../../components/Panel';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
 import {
@@ -12,9 +8,7 @@ import {
   CalendarIcon,
   PhoneIcon,
   LockIcon,
-  IdCardIcon,
-  InfoIcon,
-  ShieldIcon,
+  InstagramIcon,
 } from '../../components/icons';
 import { useCadastroForm } from '../../hooks/useCadastroForm';
 import { maskPhone } from '../../utils/masks';
@@ -43,24 +37,18 @@ function Cadastro() {
   return (
     <main className={styles.page}>
       <form className={styles.card} onSubmit={onSubmit} noValidate>
-        <Link className={styles.adminLink} to="/admin/login">
-          <ShieldIcon />
-          Area administrativa
-        </Link>
-
-        <Logo />
-
-        <div className={styles.intro}>
-          <span className={styles.eyebrow}>Divinno Cervejaria &amp; Restaurante</span>
-          <h1 className={styles.title}>Complete seu cadastro</h1>
+        <section className={styles.brandHero}>
+          <div className={styles.logoFrame}>
+            <Logo size="hero" />
+          </div>
+          <span className={styles.eyebrow}>Clube Divinno</span>
+          <h1 className={styles.title}>Cadastro de cliente</h1>
           <p className={styles.subtitle}>
-            Preencha os dados abaixo para fazer parte do clube Divinno e receber novidades da casa.
+            Faca parte da lista Divinno e receba novidades, beneficios e convites especiais.
           </p>
-        </div>
+        </section>
 
-        <StepProgress steps={3} current={0} />
-
-        <Panel icon={<IdCardIcon />} title="Dados pessoais">
+        <div className={styles.formFields}>
           <FormField
             id="nome"
             label="Nome completo"
@@ -78,52 +66,47 @@ function Cadastro() {
             error={errors.email?.message}
             {...register('email')}
           />
-        </Panel>
-
-        <Panel icon={<InfoIcon />} title="Informações adicionais">
-          <div className={styles.row}>
-            <FormField
-              id="dataNascimento"
-              label="Data de nascimento"
-              icon={<CalendarIcon />}
-              type="date"
-              error={errors.dataNascimento?.message}
-              {...register('dataNascimento')}
-            />
-            <Controller
-              name="whatsapp"
-              control={control}
-              render={({ field }) => (
-                <FormField
-                  id="whatsapp"
-                  label="WhatsApp"
-                  icon={<PhoneIcon />}
-                  type="tel"
-                  inputMode="numeric"
-                  placeholder="(11) 99999-9999"
-                  error={errors.whatsapp?.message}
-                  value={field.value}
-                  onChange={(e) => field.onChange(maskPhone(e.target.value))}
-                  onBlur={field.onBlur}
-                />
-              )}
-            />
-          </div>
-        </Panel>
+          <FormField
+            id="dataNascimento"
+            label="Data de nascimento"
+            icon={<CalendarIcon />}
+            type="date"
+            error={errors.dataNascimento?.message}
+            {...register('dataNascimento')}
+          />
+          <Controller
+            name="whatsapp"
+            control={control}
+            render={({ field }) => (
+              <FormField
+                id="whatsapp"
+                label="WhatsApp"
+                icon={<PhoneIcon />}
+                type="tel"
+                inputMode="numeric"
+                placeholder="(11) 99999-9999"
+                error={errors.whatsapp?.message}
+                value={field.value}
+                onChange={(e) => field.onChange(maskPhone(e.target.value))}
+                onBlur={field.onBlur}
+              />
+            )}
+          />
+        </div>
 
         <div className={styles.privacy}>
           <LockIcon className={styles.privacyIcon} />
-          <span>Seus dados estão protegidos e não serão compartilhados.</span>
+          <span>Seus dados estao protegidos e nao serao compartilhados.</span>
         </div>
 
         {serverError && <p className={styles.serverError}>{serverError}</p>}
 
         <Button type="submit" loading={status === 'submitting'}>
-          Confirmar cadastro
+          Cadastrar agora
         </Button>
 
-        <ArchDivider flip />
         <a className={styles.socialLink} href="https://instagram.com" target="_blank" rel="noreferrer">
+          <InstagramIcon />
           @divinnocervejaria
         </a>
       </form>

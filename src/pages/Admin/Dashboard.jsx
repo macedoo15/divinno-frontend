@@ -30,6 +30,13 @@ function getValue(cliente, keys) {
   return '';
 }
 
+function getFieldValue(cliente, keys, fallbackKeys = []) {
+  const directValue = getValue(cliente, keys);
+  if (hasValue(directValue)) return directValue;
+
+  return findNestedFieldValue(cliente, fallbackKeys);
+}
+
 function hasValue(value) {
   return value !== undefined && value !== null && value !== '';
 }
@@ -63,11 +70,70 @@ function getPathValue(source, path) {
     }, source);
 }
 
-function normalizeCliente(cliente) {
-  return {
-    id: getValue(cliente, ['id', 'uuid', 'clienteId']),
-    nome: getValue(cliente, ['nome', 'name']),
-    email: getValue(cliente, [
+function findNestedFieldValue(source, keys, visited = new Set()) {
+  if (!source || typeof source !== 'object' || visited.has(source)) return '';
+
+  visited.add(source);
+
+  const normalizedKeys = keys.map(normalizeFieldName);
+
+  for (const [key, value] of Object.entries(source)) {
+    const normalizedKey = normalizeFieldName(key);
+    const isKnownField = normalizedKeys.includes(normalizedKey);
+    const looksLikeRelatedField = normalizedKeys.some((field) => normalizedKey.includes(field));
+
+    if ((isKnownField || looksLikeRelatedField) && hasValue(value)) {
+      if (typeof value === 'object') {
+        const nestedValue = findNestedFieldValue(value, keys, visited);
+        if (hasValue(nestedValue)) return nestedValue;
+      }
+
+      if (isKnownField || looksLikeEmail(value)) {
+        return value;
+      }
+    }
+  }
+
+  for (const value of Object.values(source)) {
+    const nestedValue = findNestedFieldValue(value, keys, visited);
+    if (hasValue(nestedValue)) return nestedValue;
+  }
+
+  return '';
+}
+
+function findEmailText(source, visited = new Set()) {
+  if (!source || typeof source !== 'object' || visited.has(source)) return '';
+
+  visited.add(source);
+
+  for (const [key, value] of Object.entries(source)) {
+    const normalizedKey = normalizeFieldName(key);
+
+    if (normalizedKey.includes('email') || normalizedKey === 'mail') {
+      if (looksLikeEmail(value)) {
+        return String(value).trim();
+      }
+
+      if (value && typeof value === 'object') {
+        const nestedValue = findEmailText(value, visited);
+        if (hasValue(nestedValue)) return nestedValue;
+      }
+    }
+  }
+
+  for (const value of Object.values(source)) {
+    const nestedValue = findEmailText(value, visited);
+    if (hasValue(nestedValue)) return nestedValue;
+  }
+
+  return '';
+}
+
+function getEmailValue(cliente) {
+  const email = getFieldValue(
+    cliente,
+    [
       'email',
       'eMail',
       'e-mail',
@@ -76,12 +142,44 @@ function normalizeCliente(cliente) {
       'emailCliente',
       'email_cliente',
       'clienteEmail',
+      'clientEmail',
+      'customerEmail',
+      'emailAddress',
+      'email_address',
       'contatoEmail',
       'enderecoEmail',
+      'enderecoEletronico',
       'usuario.email',
       'user.email',
       'cliente.email',
-    ]),
+      'contato.email',
+      'dados.email',
+      'attributes.email',
+    ],
+    ['email', 'eMail', 'e-mail', 'e_mail', 'mail']
+  );
+
+  if (looksLikeEmail(email)) {
+    return String(email).trim();
+  }
+
+  const nestedEmail = findEmailText(cliente);
+  if (hasValue(nestedEmail)) {
+    return nestedEmail;
+  }
+
+  return hasValue(email) ? email : '';
+}
+
+function looksLikeEmail(value) {
+  return typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function normalizeCliente(cliente) {
+  return {
+    id: getValue(cliente, ['id', 'uuid', 'clienteId']),
+    nome: getValue(cliente, ['nome', 'name']),
+    email: getEmailValue(cliente),
     whatsapp: getValue(cliente, ['whatsapp', 'telefone', 'phone']),
     dataNascimento: getValue(cliente, ['dataNascimento', 'data_nascimento', 'nascimento', 'birthDate']),
     criadoEm: getValue(cliente, ['criadoEm', 'createdAt', 'created_at', 'dataCadastro', 'data_cadastro']),

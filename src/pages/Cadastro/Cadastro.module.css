@@ -1,136 +1,157 @@
 .page {
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: var(--space-7) var(--space-4);
+  padding: max(18px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  background:
+    linear-gradient(180deg, rgba(42, 33, 23, 0.82) 0%, rgba(26, 23, 20, 0.96) 42%, #14110f 100%),
+    var(--color-bg);
 }
 
 .card {
-  position: relative;
   width: 100%;
-  max-width: 480px;
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: var(--space-7) var(--space-6) var(--space-6);
+  max-width: 430px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(36, 31, 25, 0.98) 0%, rgba(27, 23, 19, 0.98) 100%);
+  border: 1px solid rgba(224, 189, 82, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.85);
+  padding: 20px 18px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-5);
+  gap: 18px;
 }
 
-.adminLink {
-  align-self: flex-end;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-text-muted);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  transition: color var(--transition-base);
-}
-
-.adminLink svg {
-  width: 15px;
-  height: 15px;
-  color: var(--color-gold);
-}
-
-.adminLink:hover {
-  color: var(--color-gold-light);
-}
-
-.intro {
+.brandHero {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: 10px;
+  padding-bottom: 18px;
   text-align: center;
+  border-bottom: 1px solid rgba(224, 189, 82, 0.16);
+}
+
+.logoFrame {
+  position: relative;
+  width: 202px;
+  height: 202px;
+  padding: 7px;
+  border: 1px solid rgba(224, 189, 82, 0.4);
+  border-radius: 50%;
+  background: #1b1714;
+  box-shadow:
+    0 16px 38px -24px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.logoFrame::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.logoFrame img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .eyebrow {
+  margin-top: 2px;
+  color: var(--color-gold-light);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: var(--tracking-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
-  color: var(--color-gold);
 }
 
 .title {
-  font-size: 34px;
   color: var(--color-text);
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
 .subtitle {
+  max-width: 31ch;
+  color: #c7bfb1;
   font-size: 14px;
-  color: var(--color-text-muted);
-  max-width: 34ch;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-}
-
-@media (max-width: 420px) {
-  .row {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: var(--space-6) var(--space-4);
-  }
-
-  .title {
-    font-size: 28px;
-  }
+.formFields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .privacy {
+  width: 100%;
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
+  align-items: flex-start;
+  gap: 10px;
+  color: #c7bfb1;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
   font-size: 12px;
-  color: var(--color-text-muted);
-  text-align: center;
+  line-height: 1.4;
+  padding: 12px;
+  text-align: left;
 }
 
 .privacyIcon {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   color: var(--color-gold);
   flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .serverError {
   width: 100%;
-  text-align: center;
-  font-size: 13px;
   color: var(--color-error);
-  background: rgba(185, 92, 72, 0.1);
-  border: 1px solid rgba(185, 92, 72, 0.3);
-  border-radius: var(--radius-sm);
-  padding: var(--space-3);
+  background: rgba(185, 92, 72, 0.12);
+  border: 1px solid rgba(185, 92, 72, 0.32);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.35;
+  padding: 12px;
+  text-align: center;
 }
 
 .socialLink {
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  color: #b8afa1;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
   text-decoration: none;
+}
+
+.socialLink svg {
+  width: 17px;
+  height: 17px;
+  color: var(--color-gold);
 }
 
 .socialLink:hover {
   color: var(--color-gold-light);
 }
 
-/* Tela de sucesso */
 .successBadge {
   width: 64px;
   height: 64px;
@@ -142,6 +163,16 @@
   box-shadow: var(--shadow-gold-glow);
 }
 
+.successCard {
+  justify-content: center;
+  min-height: min(640px, calc(100svh - 36px));
+}
+
+.successLogoFrame {
+  width: 148px;
+  height: 148px;
+}
+
 .successIcon {
   width: 28px;
   height: 28px;
@@ -149,14 +180,48 @@
 }
 
 .successTitle {
+  color: var(--color-text);
   font-size: 30px;
+  line-height: 1;
   text-align: center;
 }
 
 .successText {
+  max-width: 32ch;
+  color: #c7bfb1;
   font-size: 14px;
-  color: var(--color-text-muted);
+  line-height: 1.55;
   text-align: center;
-  line-height: 1.6;
-  max-width: 34ch;
+}
+
+@media (max-width: 380px) {
+  .page {
+    padding: 10px;
+  }
+
+  .card {
+    gap: 15px;
+    padding: 16px 14px;
+  }
+
+  .brandHero {
+    gap: 8px;
+    padding-bottom: 15px;
+  }
+
+  .logoFrame {
+    width: 174px;
+    height: 174px;
+  }
+
+  .title {
+    font-size: 29px;
+  }
+}
+
+@media (min-width: 700px) {
+  .page {
+    align-items: center;
+    padding: 32px 16px;
+  }
 }
