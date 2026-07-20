@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Controller } from 'react-hook-form';
 import Logo from '../../components/Logo';
 import ArchDivider from '../../components/ArchDivider';
@@ -13,6 +14,7 @@ import {
   LockIcon,
   IdCardIcon,
   InfoIcon,
+  ShieldIcon,
 } from '../../components/icons';
 import { useCadastroForm } from '../../hooks/useCadastroForm';
 import { maskPhone } from '../../utils/masks';
@@ -41,6 +43,11 @@ function Cadastro() {
   return (
     <main className={styles.page}>
       <form className={styles.card} onSubmit={onSubmit} noValidate>
+        <Link className={styles.adminLink} to="/admin/login">
+          <ShieldIcon />
+          Area administrativa
+        </Link>
+
         <Logo />
 
         <div className={styles.intro}>

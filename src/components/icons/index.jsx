@@ -78,3 +78,12 @@ export function InfoIcon(props) {
     </svg>
   );
 }
+
+export function ShieldIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+      <path d="M12 3l7 3v5c0 4.6-2.9 8.5-7 10-4.1-1.5-7-5.4-7-10V6l7-3z" />
+      <path d="M9.5 12l1.8 1.8 3.7-4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}

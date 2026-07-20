@@ -31,8 +31,11 @@ export function useCadastroForm() {
       setStatus('success');
     } catch (err) {
       setStatus('error');
+      const message = err?.response?.data?.message;
       setServerError(
-        err?.response?.data?.message || 'Não foi possível concluir o cadastro. Tente novamente.'
+        Array.isArray(message)
+          ? message.join(' ')
+          : message || 'Nao foi possivel concluir o cadastro. Tente novamente.'
       );
     }
   }
