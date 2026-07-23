@@ -142,6 +142,38 @@
   text-decoration: none;
 }
 
+.adminLink {
+  width: 100%;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-gold-light);
+  background: rgba(224, 189, 82, 0.08);
+  border: 1px solid rgba(224, 189, 82, 0.28);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-decoration: none;
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.adminLink svg {
+  width: 16px;
+  height: 16px;
+}
+
+.adminLink:hover {
+  color: #1a1409;
+  background: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+}
+
 .socialLink svg {
   width: 17px;
   height: 17px;

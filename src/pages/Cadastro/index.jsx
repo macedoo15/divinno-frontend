@@ -1,4 +1,5 @@
 import { Controller } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import FormField from '../../components/FormField';
 import Button from '../../components/Button';
@@ -104,6 +105,11 @@ function Cadastro() {
         <Button type="submit" loading={status === 'submitting'}>
           Cadastrar agora
         </Button>
+
+        <Link className={styles.adminLink} to="/admin/login">
+          <LockIcon />
+          Area administrativa
+        </Link>
 
         <a
           className={styles.socialLink}
